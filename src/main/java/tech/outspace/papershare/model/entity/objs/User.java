@@ -42,7 +42,7 @@ public class User implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private EUserStatus status;
+    private EUserStatus status = EUserStatus.NORMAL;
 
     @Column(name = "orcid", length = 31, nullable = false, unique = true)
     private String orcid;

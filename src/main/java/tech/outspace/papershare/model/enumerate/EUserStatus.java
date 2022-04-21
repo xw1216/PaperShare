@@ -19,4 +19,8 @@ public enum EUserStatus {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public boolean isBaned() {
+        return this == BAN;
+    }
 }

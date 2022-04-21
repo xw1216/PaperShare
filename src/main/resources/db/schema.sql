@@ -1,7 +1,7 @@
 drop table if exists rel_paper_cited, rel_paper_area, rel_paper_author;
-drop table if exists rel_user_area, rel_user_repo;
+drop table if exists rel_user_area, rel_user_repo_focus;
 drop table if exists rel_note_comment, rel_repo_paper;
-drop table if exists comment, note, session;
+drop table if exists comment, note, session, check_code;
 drop table if exists author, area, paper;
 drop table if exists repo, user;
 
@@ -17,6 +17,15 @@ create table user
     signup_time datetime     not null,
     signin_time datetime     not null,
     unique user_email_index (email)
+);
+
+create table check_code
+(
+    id          bigint       not null primary key,
+    email       varchar(255) not null unique,
+    code        varchar(31)  not null,
+    expire_time datetime     not null,
+    unique check_code_email_index (email)
 );
 
 create table session

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import tech.outspace.papershare.utils.general.SnowFlake;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -37,8 +38,11 @@ public class Session implements Serializable {
             foreignKey = @ForeignKey(name = "fk_session_user_id"))
     private User user;
 
-    public Session(Long id, Long userId, String secret, LocalDateTime expireTime, Boolean close) {
-        this.id = id;
+    @Transient
+    private SnowFlake idGen = new SnowFlake(0, 1);
+
+    public Session(Long userId, String secret, LocalDateTime expireTime, Boolean close) {
+        this.id = idGen.NextId();
         this.userId = userId;
         this.secret = secret;
         this.expireTime = expireTime;

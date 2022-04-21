@@ -11,9 +11,9 @@ create table user
     email       varchar(255) not null unique,
     name        varchar(255) not null,
     pass        varchar(511) not null,
-    role        enum ('user', 'admin'),
-    status      enum ('normal', 'freeze', 'ban'),
-    orcid       varchar(31),
+    role        enum ('USER', 'ADMIN'),
+    status      enum ('NORMAL', 'FREEZE', 'BAN'),
+    orcid       varchar(31) unique,
     signup_time datetime     not null,
     signin_time datetime     not null,
     unique user_email_index (email)
@@ -25,7 +25,7 @@ create table session
     user_id     bigint       not null unique,
     secret      varchar(255) not null,
     expire_time datetime     not null,
-    close       tinyint(1),
+    close       tinyint(1)   not null default 0,
     constraint fk_session_user_id foreign key (user_id) references user (id) on delete cascade
 );
 
@@ -35,7 +35,8 @@ create table repo
     name        varchar(127) not null,
     visible     tinyint(1)   not null default 1,
     description varchar(511)          default '',
-    create_time datetime     not null
+    create_time datetime     not null,
+    update_time datetime     not null
 );
 
 create table paper
@@ -74,6 +75,7 @@ create table comment
     user_id     bigint       not null,
     note_id     bigint       not null,
     create_time datetime     not null,
+    update_time datetime     not null,
     constraint fk_comment_user_id foreign key (user_id) references user (id) on delete cascade,
     constraint fk_comment_note_id foreign key (note_id) references note (id) on delete cascade
 );
@@ -82,15 +84,19 @@ create table area
 (
     id        bigint       not null primary key,
     name      varchar(127) not null unique,
-    parent_id bigint
+    popular   bigint       not null default 0,
+    parent_id bigint,
+    constraint fk_area_id foreign key (parent_id) references area (id)
 );
 
 create table author
 (
-    id    bigint       not null primary key,
-    name  varchar(127) not null,
-    orcid varchar(31),
-    wosid varchar(31)
+    id      bigint       not null primary key,
+    name    varchar(127) not null,
+    popular bigint       not null default 0,
+    email   varchar(255),
+    orcid   varchar(31),
+    wosid   varchar(31)
 );
 
 create table rel_note_comment
@@ -102,7 +108,7 @@ create table rel_note_comment
     constraint fk_rel_note_comment_cmt_id foreign key (cmt_id) references comment (id) on delete cascade
 );
 
-create table rel_user_repo
+create table rel_user_repo_focus
 (
     user_id    bigint                         not null,
     repo_id    bigint                         not null,
@@ -110,8 +116,8 @@ create table rel_user_repo
     focus_type enum ('watch', 'star', 'fork') not null default 'star',
     focus_time datetime                       not null,
     constraint pk_rel_user_repo primary key (user_id, repo_id),
-    constraint fk_rel_user_repo_user_id foreign key (user_id) references user (id) on delete cascade,
-    constraint fk_rel_user_repo_repo_id foreign key (repo_id) references repo (id) on delete cascade
+    constraint fk_rel_focus_user_id foreign key (user_id) references user (id) on delete cascade,
+    constraint fk_rel_focus_repo_id foreign key (repo_id) references repo (id) on delete cascade
 );
 
 create table rel_user_area

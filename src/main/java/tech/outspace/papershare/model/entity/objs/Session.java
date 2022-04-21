@@ -1,0 +1,58 @@
+package tech.outspace.papershare.model.entity.objs;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@Accessors(chain = true)
+@NoArgsConstructor
+@Entity
+@Table(name = "session")
+public class Session implements Serializable {
+    @Id
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @Column(name = "user_id", nullable = false, unique = true)
+    private Long userId;
+
+    @Column(name = "secret", nullable = false)
+    private String secret;
+
+    @Column(name = "expire_time", nullable = false)
+    private LocalDateTime expireTime;
+
+    @Column(name = "close", nullable = false)
+    private Boolean close = false;
+
+    @OneToOne(optional = false, orphanRemoval = true)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "fk_session_user_id"))
+    private User user;
+
+    public Session(Long id, Long userId, String secret, LocalDateTime expireTime, Boolean close) {
+        this.id = id;
+        this.userId = userId;
+        this.secret = secret;
+        this.expireTime = expireTime;
+        this.close = close;
+    }
+
+    @Override
+    public String toString() {
+        return "Session{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", secret='" + secret + '\'' +
+                ", expireTime=" + expireTime +
+                ", close=" + close +
+                '}';
+    }
+}

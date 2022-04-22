@@ -67,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                         .mvcMatchers("/auth/login").permitAll()
                                         .mvcMatchers("/api-docs/**", "/api-test/**").permitAll()
                                         .mvcMatchers("/swagger-ui/**").permitAll()
+                                        .mvcMatchers("/auth/email/**").permitAll()
                                         // 设置需要认证的页面
 //                                        .mvcMatchers("/greeting/**").hasRole("ADMIN")
                                         .anyRequest().authenticated()

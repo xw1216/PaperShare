@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.springframework.data.annotation.CreatedDate;
 import tech.outspace.papershare.model.entity.rels.UserAreaRel;
 import tech.outspace.papershare.model.entity.rels.UserRepoFocusRel;
 import tech.outspace.papershare.model.enumerate.ERole;
 import tech.outspace.papershare.model.enumerate.EUserStatus;
+import tech.outspace.papershare.utils.general.SnowFlake;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -44,10 +44,9 @@ public class User implements Serializable {
     @Column(name = "status", nullable = false)
     private EUserStatus status = EUserStatus.NORMAL;
 
-    @Column(name = "orcid", length = 31, nullable = false, unique = true)
+    @Column(name = "orcid", length = 31, unique = true)
     private String orcid;
 
-    @CreatedDate
     @Column(name = "signup_time", nullable = false)
     private LocalDateTime signUpTime;
 
@@ -69,14 +68,18 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<UserAreaRel> areaRels = new ArrayList<>();
 
-    public User(Long id, String email, String name, String pass, ERole role, EUserStatus status, String orcid) {
-        this.id = id;
+    @Transient
+    private SnowFlake idGen = new SnowFlake(0, 0);
+
+    public User(String email, String name, String pass, LocalDateTime signInTime, LocalDateTime signUpTime) {
+        this.id = idGen.NextId();
         this.email = email;
         this.name = name;
         this.pass = pass;
-        this.role = role;
-        this.status = status;
-        this.orcid = orcid;
+        this.role = ERole.USER;
+        this.status = EUserStatus.NORMAL;
+        this.signInTime = signInTime;
+        this.signUpTime = signUpTime;
     }
 
     @Override

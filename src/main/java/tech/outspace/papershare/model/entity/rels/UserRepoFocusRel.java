@@ -26,11 +26,11 @@ import java.util.Objects;
 public class UserRepoFocusRel implements Serializable {
     @Id
     @Column(name = "user_id", nullable = false)
-    private Long user_id;
+    private Long userId;
 
     @Id
     @Column(name = "repo_id", nullable = false)
-    private Long repo_id;
+    private Long repoId;
 
     @Column(name = "visible", nullable = false)
     private Boolean visible = true;
@@ -54,8 +54,8 @@ public class UserRepoFocusRel implements Serializable {
     private Repo repo;
 
     public UserRepoFocusRel(Long user_id, Long repo_id, Boolean visible, EFocusType focusType) {
-        this.user_id = user_id;
-        this.repo_id = repo_id;
+        this.userId = user_id;
+        this.repoId = repo_id;
         this.visible = visible;
         this.focusType = focusType;
     }
@@ -65,19 +65,19 @@ public class UserRepoFocusRel implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserRepoFocusRel that = (UserRepoFocusRel) o;
-        return Objects.equals(user_id, that.user_id) && Objects.equals(repo_id, that.repo_id) && Objects.equals(visible, that.visible) && focusType == that.focusType && Objects.equals(focusTime, that.focusTime);
+        return Objects.equals(userId, that.userId) && Objects.equals(repoId, that.repoId) && Objects.equals(visible, that.visible) && focusType == that.focusType && Objects.equals(focusTime, that.focusTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user_id, repo_id, visible, focusType, focusTime);
+        return Objects.hash(userId, repoId, visible, focusType, focusTime);
     }
 
     @Override
     public String toString() {
         return "UserRepoFocusRel{" +
-                "user_id=" + user_id +
-                ", repo_id=" + repo_id +
+                "user_id=" + userId +
+                ", repo_id=" + repoId +
                 ", visible=" + visible +
                 ", focusType=" + focusType +
                 ", focusTime=" + focusTime +

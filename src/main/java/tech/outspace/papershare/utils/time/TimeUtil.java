@@ -1,6 +1,7 @@
 package tech.outspace.papershare.utils.time;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import tech.outspace.papershare.model.entity.objs.CheckCode;
 import tech.outspace.papershare.model.entity.objs.Session;
 
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ public class TimeUtil {
     }
 
     public static LocalDateTime getEmailCodeExpireTime() {
-        return getUTC().plusMinutes(10);
+        return getUTC().plusMinutes(20);
     }
 
     public static LocalDateTime getSessionExpireTime() {
@@ -46,6 +47,15 @@ public class TimeUtil {
         return session.getExpireTime().isBefore(getUTC());
     }
 
+    public static boolean isCheckCodeExpired(CheckCode checkCode, LocalDateTime time) {
+        return checkCode.getExpireTime().isBefore(time);
+    }
+
+    public static boolean isCheckCodeExpired(CheckCode checkCode) {
+        return checkCode.getExpireTime().isBefore(getUTC());
+    }
+
+
     public static boolean isJwtExpired(DecodedJWT decodedJWT) {
         Date time = decodedJWT.getExpiresAt();
         return getUTCTime(time).isBefore(getUTC());
@@ -55,4 +65,6 @@ public class TimeUtil {
         Date expireTime = decodedJWT.getExpiresAt();
         return getUTCTime(expireTime).isBefore(time);
     }
+
+
 }

@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import tech.outspace.papershare.model.entity.rels.RepoPaperRel;
 import tech.outspace.papershare.model.entity.rels.UserRepoFocusRel;
+import tech.outspace.papershare.utils.general.SnowFlake;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -34,7 +35,7 @@ public class Repo implements Serializable {
     @Column(name = "visible", nullable = false)
     private Boolean visible = true;
 
-    @Column(name = "description", nullable = false, length = 511)
+    @Column(name = "description", length = 511)
     private String description;
 
     @CreatedDate
@@ -54,8 +55,11 @@ public class Repo implements Serializable {
     @OneToMany(mappedBy = "repo", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<RepoPaperRel> paperRels = new ArrayList<>();
 
-    public Repo(Long id, String name, Boolean visible, String description) {
-        this.id = id;
+    @Transient
+    private SnowFlake idGen = new SnowFlake(1, 0);
+
+    public Repo(String name, Boolean visible, String description) {
+        this.id = idGen.NextId();
         this.name = name;
         this.visible = visible;
         this.description = description;

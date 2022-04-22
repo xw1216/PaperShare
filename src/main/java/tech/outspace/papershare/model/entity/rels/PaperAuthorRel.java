@@ -22,11 +22,11 @@ import java.util.Objects;
 public class PaperAuthorRel implements Serializable {
     @Id
     @Column(name = "paper_id", nullable = false)
-    private Long paper_id;
+    private Long paperId;
 
     @Id
     @Column(name = "author_id", nullable = false)
-    private Long author_id;
+    private Long authorId;
 
     @ManyToOne
     @JoinColumn(name = "paper_id", referencedColumnName = "id", insertable = false, updatable = false,
@@ -39,8 +39,8 @@ public class PaperAuthorRel implements Serializable {
     private Author author;
 
     public PaperAuthorRel(Long paper_id, Long author_id) {
-        this.paper_id = paper_id;
-        this.author_id = author_id;
+        this.paperId = paper_id;
+        this.authorId = author_id;
     }
 
     @Override
@@ -48,19 +48,19 @@ public class PaperAuthorRel implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PaperAuthorRel that = (PaperAuthorRel) o;
-        return Objects.equals(paper_id, that.paper_id) && Objects.equals(author_id, that.author_id);
+        return Objects.equals(paperId, that.paperId) && Objects.equals(authorId, that.authorId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(paper_id, author_id);
+        return Objects.hash(paperId, authorId);
     }
 
     @Override
     public String toString() {
         return "PaperAuthorRel{" +
-                "paper_id=" + paper_id +
-                ", author_id=" + author_id +
+                "paper_id=" + paperId +
+                ", author_id=" + authorId +
                 '}';
     }
 }

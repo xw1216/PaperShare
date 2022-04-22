@@ -21,11 +21,11 @@ import java.util.Objects;
 public class PaperCitedRel implements Serializable {
     @Id
     @Column(name = "source_id", nullable = false)
-    private Long source_id;
+    private Long sourceId;
 
     @Id
     @Column(name = "cited_id", nullable = false)
-    private Long cited_id;
+    private Long citedId;
 
 
     @ManyToOne
@@ -39,8 +39,8 @@ public class PaperCitedRel implements Serializable {
     private Paper cited;
 
     public PaperCitedRel(Long source_id, Long cited_id) {
-        this.source_id = source_id;
-        this.cited_id = cited_id;
+        this.sourceId = source_id;
+        this.citedId = cited_id;
     }
 
     @Override
@@ -48,19 +48,19 @@ public class PaperCitedRel implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PaperCitedRel that = (PaperCitedRel) o;
-        return Objects.equals(source_id, that.source_id) && Objects.equals(cited_id, that.cited_id);
+        return Objects.equals(sourceId, that.sourceId) && Objects.equals(citedId, that.citedId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(source_id, cited_id);
+        return Objects.hash(sourceId, citedId);
     }
 
     @Override
     public String toString() {
         return "PaperCitedRel{" +
-                "source_id=" + source_id +
-                ", cited_id=" + cited_id +
+                "source_id=" + sourceId +
+                ", cited_id=" + citedId +
                 '}';
     }
 }

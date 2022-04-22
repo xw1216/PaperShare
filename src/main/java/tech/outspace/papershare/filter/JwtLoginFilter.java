@@ -14,7 +14,7 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.Assert;
 import org.springframework.util.StreamUtils;
-import tech.outspace.papershare.model.vo.SignInVo;
+import tech.outspace.papershare.model.vo.LoginVo;
 import tech.outspace.papershare.utils.convert.JsonConvert;
 
 import javax.servlet.FilterChain;
@@ -48,7 +48,7 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
             throw new AuthenticationCredentialsNotFoundException("Null authentication request");
         }
 
-        SignInVo signInVo = getSignInVo(cont);
+        LoginVo signInVo = getSignInVo(cont);
 
         UsernamePasswordAuthenticationToken token = null;
         if (signInVo == null) {
@@ -82,13 +82,13 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
         chain.doFilter(request, response);
     }
 
-    private SignInVo getSignInVo(String cont) {
+    private LoginVo getSignInVo(String cont) {
         if (cont == null) {
             return null;
         }
-        SignInVo signInVo = null;
+        LoginVo signInVo = null;
         try {
-            signInVo = JsonConvert.toObject(cont, SignInVo.class);
+            signInVo = JsonConvert.toObject(cont, LoginVo.class);
         } catch (JsonProcessingException ignored) {
             throw new BadCredentialsException("Illegal json");
         }

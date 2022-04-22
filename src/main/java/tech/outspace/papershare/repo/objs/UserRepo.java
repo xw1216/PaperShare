@@ -20,5 +20,8 @@ public interface UserRepo extends JpaRepository<User, Long>, JpaSpecificationExe
     @Query("update User u set u.signInTime = ?1 where u.id = ?2")
     int updateSignInTimeById(@NonNull LocalDateTime signInTime, @NonNull Long id);
 
+    @Query("select (count(u) > 0) from User u where u.email = ?1")
+    boolean existsByEmail(@NonNull String email);
+
 
 }

@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 import tech.outspace.papershare.model.entity.rels.PaperAuthorRel;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "author")
-public class Author {
+public class Author implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;

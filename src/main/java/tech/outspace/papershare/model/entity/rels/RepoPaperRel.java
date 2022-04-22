@@ -22,11 +22,11 @@ import java.util.Objects;
 public class RepoPaperRel implements Serializable {
     @Id
     @Column(name = "repo_id", nullable = false)
-    private Long repo_id;
+    private Long repoId;
 
     @Id
     @Column(name = "paper_id", nullable = false)
-    private Long paper_id;
+    private Long paperId;
 
 
     @ManyToOne
@@ -40,8 +40,8 @@ public class RepoPaperRel implements Serializable {
     private Paper paper;
 
     public RepoPaperRel(Long repo_id, Long paper_id) {
-        this.repo_id = repo_id;
-        this.paper_id = paper_id;
+        this.repoId = repo_id;
+        this.paperId = paper_id;
     }
 
     @Override
@@ -49,19 +49,19 @@ public class RepoPaperRel implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RepoPaperRel that = (RepoPaperRel) o;
-        return Objects.equals(repo_id, that.repo_id) && Objects.equals(paper_id, that.paper_id);
+        return Objects.equals(repoId, that.repoId) && Objects.equals(paperId, that.paperId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(repo_id, paper_id);
+        return Objects.hash(repoId, paperId);
     }
 
     @Override
     public String toString() {
         return "RepoPaperRel{" +
-                "repo_id=" + repo_id +
-                ", paper_id=" + paper_id +
+                "repo_id=" + repoId +
+                ", paper_id=" + paperId +
                 '}';
     }
 }

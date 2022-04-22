@@ -1,6 +1,8 @@
 package tech.outspace.papershare.utils.network;
 
 import org.springframework.http.MediaType;
+import tech.outspace.papershare.utils.result.EResult;
+import tech.outspace.papershare.utils.result.Result;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -21,6 +23,18 @@ public class HttpFormat {
         response.setStatus(status);
         response.setCharacterEncoding("UTF-8");
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+    }
+
+    public static <T> Result<T> reviseErrorResponse(HttpServletResponse response, EResult result) {
+        int status = result.getCode();
+        reviseResponse(response, status);
+        return Result.factory(result, null);
+    }
+
+    public static Result<String> reviseErrorResponse(HttpServletResponse response, EResult result, String msg) {
+        int status = result.getCode();
+        reviseResponse(response, status);
+        return Result.factory(result, msg);
     }
 
     public static void setTokenHeader(HttpServletResponse response, String token) {

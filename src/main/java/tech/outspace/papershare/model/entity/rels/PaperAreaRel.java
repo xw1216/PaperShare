@@ -22,11 +22,11 @@ import java.util.Objects;
 public class PaperAreaRel implements Serializable {
     @Id
     @Column(name = "paper_id", nullable = false)
-    private Long paper_id;
+    private Long paperId;
 
     @Id
     @Column(name = "area_id", nullable = false)
-    private Long area_id;
+    private Long areaId;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "paper_id", referencedColumnName = "id", insertable = false, updatable = false,
@@ -39,8 +39,8 @@ public class PaperAreaRel implements Serializable {
     private Area area;
 
     public PaperAreaRel(Long paper_id, Long area_id) {
-        this.paper_id = paper_id;
-        this.area_id = area_id;
+        this.paperId = paper_id;
+        this.areaId = area_id;
     }
 
     @Override
@@ -48,19 +48,19 @@ public class PaperAreaRel implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PaperAreaRel that = (PaperAreaRel) o;
-        return Objects.equals(paper_id, that.paper_id) && Objects.equals(area_id, that.area_id);
+        return Objects.equals(paperId, that.paperId) && Objects.equals(areaId, that.areaId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(paper_id, area_id);
+        return Objects.hash(paperId, areaId);
     }
 
     @Override
     public String toString() {
         return "PaperAreaRel{" +
-                "paper_id=" + paper_id +
-                ", area_id=" + area_id +
+                "paper_id=" + paperId +
+                ", area_id=" + areaId +
                 '}';
     }
 }

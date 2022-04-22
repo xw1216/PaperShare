@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/papershare?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8}
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/papershare?useUnicode=true&characterEncoding=UTF-8}
     username: ${MYSQL_USER:papershare}
     password: ${MYSQL_PASS:48161639}
     hikari:
@@ -38,20 +38,20 @@ spring:
     restart:
       enabled: true
 
-  mail:
-    default-encoding: UTF-8
-    host: smtp.163.com
-    username: papershare2022@163.com
-    password: MZWPNPUFLOSOLWWD
-    port: 465
-    properties:
-      mail:
-        smtp:
-          auth: true
-          socketFactory:
-            class: javax.net.ssl.SSLSocketFactory
-          starttls:
-            enable: true
+#  mail:
+#    default-encoding: UTF-8
+#    host: smtp.163.com
+#    username: papershare2022@163.com
+#    password: MZWPNPUFLOSOLWWD
+#    port: 465
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          socketFactory:
+#            class: javax.net.ssl.SSLSocketFactory
+#          starttls:
+#            enable: true
 
 
 springdoc:

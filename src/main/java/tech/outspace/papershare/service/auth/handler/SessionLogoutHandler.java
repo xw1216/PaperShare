@@ -34,9 +34,8 @@ public class SessionLogoutHandler implements LogoutHandler {
 
         TokenVo tokenVo = ((JwtVerifyToken) authentication).getTokenVo();
         Result<String> result = Result.factory(EResult.SUCCESS, "Logout Success");
-
         try {
-            String json = JsonConvert.toJson(request);
+            String json = JsonConvert.toJson(result);
             response.getOutputStream().print(json);
             authProviderService.logoutById(tokenVo.getSessionId());
             SecurityContextHolder.clearContext();

@@ -35,7 +35,7 @@ public class Note implements Serializable {
     private String posX;
 
     @Column(name = "pos_y", nullable = false)
-    private Integer pos_Y;
+    private Integer posY;
 
     @Column(name = "repo_id", nullable = false)
     private Long repoId;
@@ -81,7 +81,7 @@ public class Note implements Serializable {
         this.content = content;
         this.visible = visible;
         this.posX = posX;
-        this.pos_Y = pos_Y;
+        this.posY = pos_Y;
         this.repoId = repoId;
         this.paperId = paperId;
         this.userId = userId;
@@ -94,7 +94,7 @@ public class Note implements Serializable {
                 ", content='" + content + '\'' +
                 ", visible=" + visible +
                 ", posX='" + posX + '\'' +
-                ", pos_Y=" + pos_Y +
+                ", pos_Y=" + posY +
                 ", repoId=" + repoId +
                 ", paperId=" + paperId +
                 ", userId=" + userId +

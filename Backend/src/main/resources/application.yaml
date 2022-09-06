@@ -1,0 +1,41 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/papershare?useUnicode=true&characterEncoding=UTF-8}
+    username: ${MYSQL_USER:papershare}
+    password: ${MYSQL_PASS:48161639}
+    hikari:
+      idle-timeout: 30000
+      connection-timeout: 10000
+      maximum-pool-size: 15
+      minimum-idle: 5
+      auto-commit: true
+
+  sql:
+    init:
+      mode: never
+      schema-locations:
+        - classpath:db/schema.sql
+      data-locations:
+        - classpath:db/data.sql
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    database: mysql
+    defer-datasource-initialization: true
+
+  devtools:
+    restart:
+      enabled: true
+
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+
+  swagger-ui:
+    enabled: true
+    path: /api-test

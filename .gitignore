@@ -1,0 +1,11 @@
+.vscode
+.idea
+
+/Frontend/node_modules
+/Frontend/coverage
+/Frontend/build
+/Frontend/package-lock.json
+
+/Backend/.gradle
+/Backend/build
+
